@@ -51,6 +51,7 @@ const restartGame = () => {
     }
   }
   spanx.innerHTML = "";
+  spanx.className='span'
   addEvents();
 };
 
@@ -88,6 +89,7 @@ const gameOver = () => {
       spanx.innerHTML = `O winner`;
     } else {
       spanx.innerHTML = `DRAW!!!`;
+      spanx.classList.add('draw')
     }
   }
 };
@@ -108,10 +110,12 @@ const ifWon = () => {
     oArr = JSON.stringify(oArr);
     if (xArr === ans) {
       spanx.innerHTML = `X winner`;
+      spanx.classList.add('winner')
       remEvents()
       break;
     } else if (oArr === ans) {
       spanx.innerHTML = `O winner`;
+      spanx.classList.add('winner')
       remEvents()
       break;
     }
