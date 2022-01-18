@@ -30,7 +30,6 @@ const click = (event) => {
     spanx.innerHTML = "O's turn";
     OsTurn = true;
     div.classList.toggle(x);
-
   } else {
     div.innerHTML = "O";
     spanx.innerHTML = "X's turn";
@@ -41,11 +40,12 @@ const click = (event) => {
   if (isFilled()) {
     gameOver();
   }
+  ifWon()
 };
 
 const restartGame = () => {
   for (let el of cells) {
-    el.className='cell'
+    el.className = "cell";
     if (el.firstChild) {
       el.removeChild(el.firstChild);
     }
@@ -82,10 +82,8 @@ const gameOver = () => {
     let ans = JSON.stringify(el);
     xArr = JSON.stringify(xArr);
     oArr = JSON.stringify(oArr);
-    console.log(xArr + "  " + ans);
     if (xArr === ans) {
       spanx.innerHTML = `X winner`;
-      console.log("x won");
     } else if (oArr === ans) {
       spanx.innerHTML = `O winner`;
     } else {
@@ -108,11 +106,14 @@ const ifWon = () => {
     let ans = JSON.stringify(el);
     xArr = JSON.stringify(xArr);
     oArr = JSON.stringify(oArr);
-    console.log(xArr + "  " + ans);
     if (xArr === ans) {
       spanx.innerHTML = `X winner`;
+      remEvents()
+      break;
     } else if (oArr === ans) {
       spanx.innerHTML = `O winner`;
+      remEvents()
+      break;
     }
   }
 };
@@ -122,6 +123,12 @@ const addEvents = () => {
     el.addEventListener("click", click);
   }
 };
+
+function remEvents(){
+    for(let el of cells){
+        el.removeEventListener("click", click);
+    }
+}
 // container.addEventListener('click', click)
 addEvents();
 restart.addEventListener("click", restartGame);
